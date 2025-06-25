@@ -1,0 +1,107 @@
+.navbar {
+  background: #eaeab3 ; /* light gray */
+  box-shadow: 0 2px 4px rgba(21, 2, 2, 0.03);
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  padding: 0.75rem 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 64px;
+}
+
+.navbar-brand {
+  font-size: 2.1rem;
+  font-weight: 800;
+  color: #ff5722 !important;
+  letter-spacing: 2px;
+  margin-right: 2.5rem;
+  text-decoration: none;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  transition: color 0.2s;
+}
+
+.navbar-brand:hover {
+  color: #e64a19 !important;
+}
+
+.navbar-nav {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 0;
+}
+
+.nav-link {
+  color: #222 !important;
+  font-size: 1.08rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.18s, background 0.18s;
+  padding: 0.38rem 1.1rem;
+  border-radius: 6px;
+  letter-spacing: 0.5px;
+  background: transparent;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: #fff !important;
+  background: #ff5722;
+}
+
+.btn-outline-primary {
+  border-color: #ff5722 !important;
+  color: #ff5722 !important;
+  font-weight: 600;
+  margin-left: 0.7rem;
+  border-radius: 6px;
+  padding: 0.38rem 1.1rem;
+  transition: background 0.18s, color 0.18s;
+}
+
+.btn-outline-primary:hover {
+  background-color: #ff5722 !important;
+  color: #fff !important;
+}
+
+.btn-outline-danger {
+  border-color: #ff5722 !important;
+  color: #ff5722 !important;
+  font-weight: 600;
+  margin-left: 0.7rem;
+  border-radius: 6px;
+  padding: 0.38rem 1.1rem;
+  transition: background 0.18s, color 0.18s;
+}
+
+.btn-outline-danger:hover {
+  background-color: #ff5722 !important;
+  color: #fff !important;
+}
+
+@media (max-width: 991px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1.2rem 1rem;
+    min-height: unset;
+  }
+  .navbar-nav {
+    flex-direction: column;
+    gap: 0.7rem;
+    width: 100%;
+    margin-top: 0.7rem;
+  }
+  .navbar-brand {
+    margin-bottom: 1.2rem;
+  }
+}
+
+body, #root {
+  margin: 0;
+  padding: 0;
+}

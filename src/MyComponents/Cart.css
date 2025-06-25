@@ -1,0 +1,21 @@
+.cart-item {
+  border-bottom: 1px solid #eee;
+  padding: 16px 0;
+}
+
+.cart-title {
+  font-weight: 600;
+  color: #333;
+}
+
+.cart-price {
+  color: #ff5722;
+  font-weight: bold;
+}
+
+.cart-total {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #e64a19;
+  margin-top: 20px;
+}
