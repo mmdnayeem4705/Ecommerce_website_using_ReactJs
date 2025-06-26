@@ -57,7 +57,7 @@ export default function History({ user }) {
 
   return (
     <div className="container my-4">
-      <h3 className="text-center mb-4" style={{ fontWeight: 700, letterSpacing: 1, color: "#343a40" }}>Order History</h3>
+      <h3 className="text-center mb-4" style={{ fontWeight: 700, letterSpacing: 1, color: "#343a40" }}>...</h3>
       {loading ? (
         <div className="text-center">Loading...</div>
       ) : orders.length === 0 ? (

@@ -9,6 +9,7 @@ export default function ProductDetail({ cart, setCart, user }) {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
     setLoading(true);
@@ -34,7 +35,7 @@ export default function ProductDetail({ cart, setCart, user }) {
     }
     const isAdded = cart && cart.some(cartItem => String(cartItem.id) === String(item.id));
     if (!isAdded) {
-      setCart([...cart, { ...item }]);
+      setCart([...cart, { ...item, quantity }]);
     }
   };
 
@@ -86,6 +87,26 @@ export default function ProductDetail({ cart, setCart, user }) {
       }}
     >
       <div className="container" style={{ maxWidth: 700 }}>
+        {/* Back Button */}
+        <button
+          className="mb-3"
+          style={{
+            background: "#F97316",
+            color: "#fff",
+            border: "none",
+            borderRadius: "8px",
+            padding: "8px 22px",
+            fontWeight: 600,
+            fontSize: "1.05rem",
+            letterSpacing: 1,
+            boxShadow: "0 2px 8px rgba(249,115,22,0.10)",
+            transition: "background 0.2s, box-shadow 0.2s",
+            cursor: "pointer"
+          }}
+          onClick={() => navigate('/products')}
+        >
+          &larr; Back to Products
+        </button>
         <div
           className="product-detail-card d-flex flex-row align-items-stretch bg-white"
           style={{ gap: 40, padding: '32px 32px' }}
@@ -114,6 +135,20 @@ export default function ProductDetail({ cart, setCart, user }) {
             <h2 className="product-detail-title" style={{ fontSize: '1.3rem' }}>{product.title}</h2>
             <p className="product-detail-desc">{product.description}</p>
             <div className="product-detail-price">${product.price}</div>
+            <div className="d-flex align-items-center mb-3">
+              <button
+                className="btn btn-outline-secondary"
+                style={{ minWidth: 36, fontWeight: 700 }}
+                onClick={() => setQuantity(q => Math.max(1, q - 1))}
+                disabled={quantity <= 1}
+              >-</button>
+              <span style={{ margin: "0 18px", fontWeight: 600, fontSize: "1.1rem" }}>{quantity}</span>
+              <button
+                className="btn btn-outline-secondary"
+                style={{ minWidth: 36, fontWeight: 700 }}
+                onClick={() => setQuantity(q => q + 1)}
+              >+</button>
+            </div>
             <button
               className="btn btn-primary btn-sm"
               style={{ background: isAdded ? '#198754' : '#0d6efd', border: 'none' }}

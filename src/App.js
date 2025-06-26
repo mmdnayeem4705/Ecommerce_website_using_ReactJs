@@ -17,6 +17,7 @@ import { auth } from './firebase'; // Make sure this is the correct path
 import { onAuthStateChanged } from 'firebase/auth';
 import History from './MyComponents/History';
 import Account from './MyComponents/Account';
+import Terms from './MyComponents/Terms';
 
 
 function App() {
@@ -49,6 +50,7 @@ function App() {
           />   
           <Route path="/account" element={<Account user={user} />} />
           <Route path="/history" element={<History user={user} />} />
+          <Route path="/terms" element={<Terms />} />
         </Routes>
         <Footer />
       </div>
@@ -59,7 +61,10 @@ function App() {
 // Wrapper to inject navigate into Signin
 function SigninWrapper(props) {
   const navigate = useNavigate();
-  return <Signin {...props} navigate={navigate} />;
+  const location = window.location;
+  // Check for redirect to signup
+  const signupState = (location && location.state && location.state.signup) || false;
+  return <Signin {...props} navigate={navigate} isSignup={signupState} />;
 }
 
 export default App;

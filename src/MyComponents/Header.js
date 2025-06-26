@@ -8,7 +8,7 @@ export default function Header({ user, setUser }) {
   const navigate = useNavigate();
 
   const handleSignOut = async () => {
-    await auth.signOut(); // Properly sign out from Firebase
+    await auth.signOut();
     setUser(null);
     navigate('/signin');
   };
