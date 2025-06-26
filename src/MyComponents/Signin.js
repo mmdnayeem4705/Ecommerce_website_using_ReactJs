@@ -14,12 +14,17 @@ export default function Signin({ navigate }) {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [phone, setPhone] = useState('');
   const [address, setAddress] = useState('');
+  const [acceptTerms, setAcceptTerms] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
     if (isSignup && password !== confirmPassword) {
       setError("Passwords do not match");
+      return;
+    }
+    if (isSignup && !acceptTerms) {
+      setError("You must accept the Terms and Conditions to sign up.");
       return;
     }
     try {
@@ -32,7 +37,7 @@ export default function Signin({ navigate }) {
             phone,
             address,
           });
-          navigate('/account'); // redirect to Account after signup
+          navigate('/'); // redirect to Home after signup
         } catch (signupErr) {
           if (signupErr.code === "auth/email-already-in-use") {
             setError("Email already in use. Please sign in instead.");
@@ -42,7 +47,7 @@ export default function Signin({ navigate }) {
         }
       } else {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
-        navigate('/account'); // redirect to Account after signin
+        navigate('/'); // redirect to Home after signin
       }
     } catch (err) {
       setError(err.message);
@@ -85,8 +90,20 @@ export default function Signin({ navigate }) {
                 className="btn btn-outline-secondary"
                 tabIndex={-1}
                 onClick={() => setShowPassword((v) => !v)}
+                style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
               >
-                {showPassword ? "Hide" : "Show"}
+                {showPassword ? (
+                  // Eye-off icon
+                  <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M13.359 11.238l1.397 1.398a.75.75 0 1 1-1.06 1.06l-1.398-1.397A7.03 7.03 0 0 1 8 13.5c-3.07 0-5.64-1.97-7.406-4.5a.75.75 0 0 1 0-.832A13.133 13.133 0 0 1 3.07 5.06L1.646 3.646a.75.75 0 1 1 1.06-1.06l12 12a.75.75 0 1 1-1.06 1.06l-1.397-1.398zm-2.12-2.12l-1.06-1.06A2 2 0 0 0 8 6a2 2 0 0 0-2 2c0 .265.052.518.146.75l-1.06-1.06A3.98 3.98 0 0 1 8 5c1.657 0 3 1.343 3 3 0 .265-.052.518-.146.75z"/>
+                    <path d="M8 3.5c3.07 0 5.64 1.97 7.406 4.5a.75.75 0 0 1 0 .832A13.133 13.133 0 0 1 12.93 10.94l-1.06-1.06A3.98 3.98 0 0 0 8 5c-1.657 0-3 1.343-3 3 0 .265.052.518.146.75l-1.06-1.06A7.03 7.03 0 0 1 8 3.5z"/>
+                  </svg>
+                ) : (
+                  // Eye icon
+                  <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zm-8 4a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0-1.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
+                  </svg>
+                )}
               </button>
             </div>
           </div>
@@ -106,14 +123,51 @@ export default function Signin({ navigate }) {
                   className="btn btn-outline-secondary"
                   tabIndex={-1}
                   onClick={() => setShowConfirmPassword((v) => !v)}
+                  style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                 >
-                  {showConfirmPassword ? "Hide" : "Show"}
+                  {showConfirmPassword ? (
+                    // Eye-off icon
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" fill="currentColor" viewBox="0 0 16 16">
+                      <path d="M13.359 11.238l1.397 1.398a.75.75 0 1 1-1.06 1.06l-1.398-1.397A7.03 7.03 0 0 1 8 13.5c-3.07 0-5.64-1.97-7.406-4.5a.75.75 0 0 1 0-.832A13.133 13.133 0 0 1 3.07 5.06L1.646 3.646a.75.75 0 1 1 1.06-1.06l12 12a.75.75 0 1 1-1.06 1.06l-1.397-1.398zm-2.12-2.12l-1.06-1.06A2 2 0 0 0 8 6a2 2 0 0 0-2 2c0 .265.052.518.146.75l-1.06-1.06A3.98 3.98 0 0 1 8 5c1.657 0 3 1.343 3 3 0 .265-.052.518-.146.75z"/>
+                      <path d="M8 3.5c3.07 0 5.64 1.97 7.406 4.5a.75.75 0 0 1 0 .832A13.133 13.133 0 0 1 12.93 10.94l-1.06-1.06A3.98 3.98 0 0 0 8 5c-1.657 0-3 1.343-3 3 0 .265.052.518.146.75l-1.06-1.06A7.03 7.03 0 0 1 8 3.5z"/>
+                    </svg>
+                  ) : (
+                    // Eye icon
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" fill="currentColor" viewBox="0 0 16 16">
+                      <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zm-8 4a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0-1.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
+                    </svg>
+                  )}
                 </button>
               </div>
             </div>
           )}
+          {isSignup && (
+            <div className="form-check mb-3">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                id="acceptTerms"
+                checked={acceptTerms}
+                onChange={e => setAcceptTerms(e.target.checked)}
+                required
+              />
+              <label className="form-check-label" htmlFor="acceptTerms">
+                I accept the{' '}
+                <a
+                  href="#"
+                  style={{ color: "#F97316", textDecoration: "underline", cursor: "pointer" }}
+                  onClick={e => {
+                    e.preventDefault();
+                    navigate('/terms');
+                  }}
+                >
+                  Terms and Conditions
+                </a>
+              </label>
+            </div>
+          )}
           {error && <div className="alert alert-danger py-1">{error}</div>}
-          <button type="submit" className="btn btn-primary w-100">
+          <button type="submit" className="btn btn-primary w-100" disabled={isSignup && !acceptTerms}>
             {isSignup ? 'Sign Up' : 'Sign In'}
           </button>
         </form>
@@ -122,6 +176,7 @@ export default function Signin({ navigate }) {
             className="btn btn-link"
             type="button"
             onClick={() => setIsSignup(!isSignup)}
+            autoFocus={false}
           >
             {isSignup
               ? 'Already have an account? Sign In'

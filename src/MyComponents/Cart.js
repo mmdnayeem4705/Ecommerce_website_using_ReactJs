@@ -1,45 +1,56 @@
 import React, { useState } from 'react';
 import { collection, addDoc, serverTimestamp, doc as firestoreDoc, getDoc } from 'firebase/firestore';
 import { auth, db } from '../firebase';
-export default function Cart({ cart, user, setCart }) {
+export default function Cart({ cart, setCart, user }) {
   const [orderLoading, setOrderLoading] = useState(false);
 
-  // Add quantity property if not present
+  // Ensure every cart item has a quantity property (default to 1)
   const cartWithQty = cart.map(item => ({
     ...item,
-    quantity: item.quantity ? item.quantity : 1
+    quantity: typeof item.quantity === 'number' && item.quantity > 0 ? item.quantity : 1
   }));
 
-  // Handle increase quantity
-  const handleIncrease = (id) => {
-    const updatedCart = cartWithQty.map(item =>
-      item.id === id ? { ...item, quantity: item.quantity + 1 } : item
-    );
-    setCart(updatedCart);
-  };
-
-  // Optionally, handle decrease quantity
+  // Quantity handlers
   const handleDecrease = (id) => {
-    const updatedCart = cartWithQty.map(item =>
-      item.id === id && item.quantity > 1
-        ? { ...item, quantity: item.quantity - 1 }
-        : item
+    setCart(cart =>
+      cart.map(item =>
+        item.id === id
+          ? { ...item, quantity: Math.max(1, (item.quantity || 1) - 1) }
+          : item
+      )
     );
-    setCart(updatedCart);
   };
 
-  // Remove item from cart
+  const handleIncrease = (id) => {
+    setCart(cart =>
+      cart.map(item =>
+        item.id === id
+          ? { ...item, quantity: (item.quantity || 1) + 1 }
+          : item
+      )
+    );
+  };
+
   const handleRemove = (id) => {
-    const updatedCart = cartWithQty.filter(item => item.id !== id);
-    setCart(updatedCart);
+    setCart(cart => cart.filter(item => item.id !== id));
   };
 
+  // Calculate total price, discount, and delivery using cartWithQty
+  const total = cartWithQty.reduce(
+    (sum, item) => sum + ((item.price || 0) * (typeof item.quantity === 'number' && item.quantity > 0 ? item.quantity : 1)),
+    0
+  );
+  const discount = total >= 200 ? total * 0.10 : 0;
+  const delivery = total >= 300 ? 0 : 30; // Free delivery for >= 300, else 30
+  const finalTotal = total - discount + delivery;
+
+  // Confirm order logic (reuse from products page)
   const handleConfirmOrder = async () => {
     if (!user) {
       alert('Please sign in to confirm your order.');
       return;
     }
-    if (cart.length === 0) {
+    if (cartWithQty.length === 0) {
       alert('Your cart is empty!');
       return;
     }
@@ -66,12 +77,6 @@ export default function Cart({ cart, user, setCart }) {
     }
     setOrderLoading(false);
   };
-
-  // Calculate total price
-  const total = cart.reduce(
-    (sum, item) => sum + (item.price * (item.quantity || 1)),
-    0
-  );
 
   return (
     <div className="container my-4">
@@ -149,23 +154,69 @@ export default function Cart({ cart, user, setCart }) {
               </tbody>
             </table>
           </div>
-          <div className="mt-3">
-            <strong>Total: ${total.toFixed(2)}</strong>
-          </div>
-          {total > 100 && (
-            <div className="alert alert-success mt-2">
-              🎉 You are eligible for <strong>Free Delivery!</strong>
+          {delivery === 0 && (
+            <div className="alert alert-success text-center mb-4" style={{ fontWeight: 600, fontSize: "1.1rem" }}>
+              🎉 You are eligible for Free Delivery!
             </div>
           )}
-          {cart.length > 0 && (
-            <button
-              className="btn btn-success mt-3"
-              onClick={handleConfirmOrder}
-              disabled={orderLoading}
-            >
-              {orderLoading ? "Confirming..." : "Confirm Order"}
-            </button>
-          )}
+          <div className="row justify-content-center">
+            <div className="col-md-7 col-lg-6">
+              <div
+                className="card p-4"
+                style={{
+                  borderRadius: 14,
+                  boxShadow: "0 2px 12px rgba(0,0,0,0.07)",
+                  background: "#fff",
+                  marginTop: 24,
+                  marginBottom: 24
+                }}
+              >
+                <h4 className="mb-3 text-center" style={{ color: "#F97316", fontWeight: 700, letterSpacing: 1 }}>Bill Summary</h4>
+                <div className="d-flex justify-content-between mb-2">
+                  <span style={{ fontWeight: 500 }}>Total</span>
+                  <span style={{ fontWeight: 600 }}>${total.toFixed(2)}</span>
+                </div>
+                <div className="d-flex justify-content-between mb-2">
+                  <span style={{ fontWeight: 500 }}>Discount</span>
+                  <span style={{ color: discount > 0 ? "#198754" : "#888", fontWeight: 600 }}>
+                    {discount > 0 ? `- $${discount.toFixed(2)} (10% off)` : "-"}
+                  </span>
+                </div>
+                <div className="d-flex justify-content-between mb-2">
+                  <span style={{ fontWeight: 500 }}>Delivery</span>
+                  <span style={{ color: delivery === 0 ? "#198754" : "#F97316", fontWeight: 600 }}>
+                    {delivery === 0 ? "Free" : `$${delivery.toFixed(2)}`}
+                  </span>
+                </div>
+                <hr />
+                <div className="d-flex justify-content-between mb-4">
+                  <span style={{ fontWeight: 700, fontSize: "1.1rem" }}>Payable</span>
+                  <span style={{ fontWeight: 700, color: "#F97316", fontSize: "1.1rem" }}>${finalTotal.toFixed(2)}</span>
+                </div>
+                <div className="d-flex justify-content-center">
+                  <button
+                    className="btn"
+                    style={{
+                      background: "#F97316",
+                      color: "#fff",
+                      fontWeight: 700,
+                      borderRadius: 8,
+                      padding: "10px 38px",
+                      fontSize: "1.1rem",
+                      boxShadow: "0 2px 8px rgba(249,115,22,0.10)",
+                      border: "none",
+                      letterSpacing: 1,
+                      minWidth: 180
+                    }}
+                    onClick={handleConfirmOrder}
+                    disabled={orderLoading || cartWithQty.length === 0}
+                  >
+                    {orderLoading ? 'Confirming...' : 'Confirm Order'}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </>
       )}
     </div>
