@@ -62,3 +62,14 @@ Nayeem Store is a modern e-commerce web application built with ReactJS and Fireb
 
 ### Running Locally
 
+<<<<<<< HEAD
+=======
+Demo work
+visit this site = https://ecommerce-website-using-react-js-18.vercel.app/
+login with this credentials 
+email = king@gmail.com
+password = king123
+password = king123
+=======
+>>>>>>> 5c6b304 (Update project with latest changes)
+>>>>>>> 9fe82bb (Update project: cart bill summary, payment flow, and UI improvements)

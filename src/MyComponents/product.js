@@ -134,24 +134,7 @@ const Product = ({ cart, setCart, user }) => {
     categoryRefs[cat]?.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
-  const filteredProducts = search
-    ? products.filter(
-        (p) =>
-          p.title.toLowerCase().includes(search.toLowerCase()) ||
-          p.description.toLowerCase().includes(search.toLowerCase())
-      )
-    : products;
-
-  const grouped = groupProducts(filteredProducts);
-
-  // Calculate total price, discount, and delivery using cartWithQty (to always use correct quantity)
-  const total = cartWithQty.reduce(
-    (sum, item) => sum + ((item.price || 0) * (typeof item.quantity === 'number' && item.quantity > 0 ? item.quantity : 1)),
-    0
-  );
-  const discount = total >= 200 ? total * 0.10 : 0;
-  const delivery = total >= 300 ? 0 : 30; // Free delivery for >= 300, else 30
-  const finalTotal = total - discount + delivery;
+  const grouped = groupProducts(products);
 
   return (
     <div style={{ background: "#FFF7ED", minHeight: "100vh" }}>
@@ -175,47 +158,9 @@ const Product = ({ cart, setCart, user }) => {
           Shop Now...!
         </h1>
         <div className="mb-4 d-flex justify-content-between align-items-center">
-          <h5 className="mb-0" style={{ color: "#F97316", fontWeight: 700 }}>
-            Cart: {cart.length} item(s)
-          </h5>
-          <div>
-            <span style={{ fontWeight: 600, color: "#111" }}>
-              Total: ${total.toFixed(2)}
-            </span>
-            {discount > 0 && (
-              <span style={{ marginLeft: 18, color: "#198754", fontWeight: 700 }}>
-                Discount: -${discount.toFixed(2)} (10% off)
-              </span>
-            )}
-            <span style={{ marginLeft: 18, color: delivery === 0 ? "#198754" : "#F97316", fontWeight: 700 }}>
-              Delivery: {delivery === 0 ? "Free" : `$${delivery.toFixed(2)}`}
-            </span>
-            <span style={{ marginLeft: 18, color: "#F97316", fontWeight: 700 }}>
-              Payable: ${finalTotal.toFixed(2)}
-            </span>
-          </div>
-        </div>
-        <div className="mb-3 d-flex flex-column flex-md-row align-items-center justify-content-between">
-          <button
-            className="btn"
-            style={{
-              background: "#F97316",
-              color: "#fff",
-              fontWeight: 700,
-              borderRadius: 8,
-              padding: "10px 38px",
-              fontSize: "1.1rem",
-              boxShadow: "0 2px 8px rgba(249,115,22,0.10)",
-              border: "none",
-              letterSpacing: 1,
-              marginBottom: "1rem"
-            }}
-            onClick={handleConfirmOrder}
-            disabled={orderLoading || cart.length === 0}
-          >
-            {orderLoading ? 'Confirming...' : 'Confirm Order'}
-          </button>
-          <div ref={dropdownRef} style={{ position: 'relative', width: '100%', maxWidth: 220 }}>
+          <h5 className="mb-0">Cart: {cart.length} item(s)</h5>
+          {/* Custom Dropdown */}
+          <div ref={dropdownRef} style={{ position: 'relative' }}>
             <button
               className="btn"
               type="button"
