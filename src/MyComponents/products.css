@@ -105,4 +105,108 @@ button:hover {
   margin: 0 auto;
 }
 
+/* Marquee heading */
+.product-marquee {
+  position: '';
+  top: 30px;
+  background: #F97316;
+  color: black;
+  z-index: 15;
+  border-radius: 12px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  padding: 18px 0;
+  margin-bottom: 32px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+}
+
+/* All Products heading */
+.all-products-heading {
+  font-weight: 800;
+  letter-spacing: 2px;
+  background-color: #F97316;
+  font-size: 2rem;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  margin-top: 12px;
+  margin-bottom: 18px;
+  padding: 1px 1px solid #fff;
+  border-radius: 1px;
+  color: #fff;
+}
+
+/* Search bar */
+.product-search-bar {
+  position: relative;
+  width: 400px;
+  max-width: 100%;
+}
+.product-search-input {
+  max-width: 400px;
+  border-radius: 8px;
+  border: 2px solid #111;
+  background: #fff;
+  color: #111;
+  font-weight: 500;
+  font-size: 1.1rem;
+  padding: 12px 42px 12px 18px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  outline: none;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+.product-search-icon {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #F97316;
+  font-size: 22px;
+  pointer-events: none;
+}
+
+/* Product card */
+.product-card-hover {
+  cursor: pointer;
+  border: 1px solid #111;
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+.product-card-img {
+  height: 250px;
+  object-fit: contain;
+  border-radius: 12px;
+  background: #FFF7ED;
+}
+.product-card-title {
+  color: #111;
+  font-weight: 700;
+}
+.product-card-price {
+  color: #F97316;
+}
+.product-card-btn-view {
+  background: #111;
+  color: #fff;
+  font-weight: 700;
+  border-radius: 8px;
+  padding: 8px 22px;
+  font-size: 1rem;
+  border: none;
+  letter-spacing: 1px;
+}
+.product-card-btn-cart {
+  font-weight: 700;
+  border-radius: 8px;
+  padding: 8px 22px;
+  font-size: 1rem;
+  border: 1px solid #F97316;
+  letter-spacing: 1px;
+  background: #fff;
+  color: #111;
+  transition: background 0.18s, color 0.18s;
+}
+.product-card-btn-cart.added {
+  background: #F97316;
+  color: #fff;
+}
+
 

@@ -87,26 +87,6 @@ export default function ProductDetail({ cart, setCart, user }) {
       }}
     >
       <div className="container" style={{ maxWidth: 700 }}>
-        {/* Back Button */}
-        <button
-          className="mb-3"
-          style={{
-            background: "#F97316",
-            color: "#fff",
-            border: "none",
-            borderRadius: "8px",
-            padding: "8px 22px",
-            fontWeight: 600,
-            fontSize: "1.05rem",
-            letterSpacing: 1,
-            boxShadow: "0 2px 8px rgba(249,115,22,0.10)",
-            transition: "background 0.2s, box-shadow 0.2s",
-            cursor: "pointer"
-          }}
-          onClick={() => navigate('/products')}
-        >
-          &larr; Back to Products
-        </button>
         <div
           className="product-detail-card d-flex flex-row align-items-stretch bg-white"
           style={{ gap: 40, padding: '32px 32px' }}
@@ -157,6 +137,26 @@ export default function ProductDetail({ cart, setCart, user }) {
               aria-pressed={isAdded}
             >
               {isAdded ? 'Added to Cart' : 'Add to Cart'}
+            </button>
+            {/* Move Back Button below Add to Cart */}
+            <button
+              className="mt-4"
+              style={{
+                background: "#F97316",
+                color: "#fff",
+                border: "none",
+                borderRadius: "8px",
+                padding: "8px 22px",
+                fontWeight: 600,
+                fontSize: "1.05rem",
+                letterSpacing: 1,
+                boxShadow: "0 2px 8px rgba(249,115,22,0.10)",
+                transition: "background 0.2s, box-shadow 0.2s",
+                cursor: "pointer"
+              }}
+              onClick={() => navigate('/products')}
+            >
+              &larr; Back to Products
             </button>
           </div>
         </div>

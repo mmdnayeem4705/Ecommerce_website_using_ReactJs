@@ -16,9 +16,18 @@ export default function Home() {
 
   return (
     <div className="container text-center my-5 home-fadein">
-      <div className="home-hero-bg py-4 mb-4">
-        <h1 className="mb-3" style={{ color: '#fff' }}>Nayeem's Store :) </h1>
-        <p className="mb-0" style={{ color: '#444a53', fontSize: '1.15rem' }}>
+      <div
+        className="home-hero-bg py-4 mb-4"
+        style={{
+          background: "#F97316",
+          borderRadius: 18,
+          padding: "32px 18px",
+          marginBottom: 32,
+          boxShadow: "0 4px 16px rgba(0,0,0,0.07)"
+        }}
+      >
+        <h1 className="mb-3" style={{ color: '#fffff' }}>Nayeem's Store :) </h1>
+        <p className="mb-0" style={{ color: '#ffffff', fontSize: '1.15rem' }}>
           Discover a wide range of products at unbeatable prices. From fresh produce to daily essentials, we have everything you need.
         </p>
       </div>

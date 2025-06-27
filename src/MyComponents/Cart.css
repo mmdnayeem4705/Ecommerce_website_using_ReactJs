@@ -7,7 +7,13 @@
   font-weight: 600;
   color: #333;
 }
+.mb-4 {
+  display: flex;
+  justify-content: center;
+  background-color: rgb(249, 115, 22);
+  padding: 10px;
 
+}
 .cart-price {
   color: #ff5722;
   font-weight: bold;

@@ -15,9 +15,10 @@ import Home from './MyComponents/Home';
 import Signin from './MyComponents/Signin';
 import { auth } from './firebase'; // Make sure this is the correct path
 import { onAuthStateChanged } from 'firebase/auth';
-import History from './MyComponents/History';
 import Account from './MyComponents/Account';
 import Terms from './MyComponents/Terms';
+import BillSummary from './MyComponents/BillSummary';
+import CategoryProducts from './MyComponents/CategoryProducts';
 
 
 function App() {
@@ -49,8 +50,24 @@ function App() {
             }
           />   
           <Route path="/account" element={<Account user={user} />} />
-          <Route path="/history" element={<History user={user} />} />
           <Route path="/terms" element={<Terms />} />
+          <Route path="/bill-summary" element={<BillSummary cart={cart} user={user} setCart={setCart} />} />
+          <Route path="/products/category/:cat" element={
+            <CategoryProducts
+              products={
+                // Pass all products from Product.js logic
+                // You may want to lift products state up to App.js for best practice,
+                // but for now, fetch again here for simplicity.
+                // If you want to avoid double-fetch, lift products state up.
+                // For now, fetch in CategoryProducts.js (see below).
+                // Or pass products as prop if you refactor.
+                []
+              }
+              cart={cart}
+              setCart={setCart}
+              user={user}
+            />
+          } />
         </Routes>
         <Footer />
       </div>
@@ -68,4 +85,6 @@ function SigninWrapper(props) {
 }
 
 export default App;
+
+
 

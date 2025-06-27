@@ -89,8 +89,8 @@ export default function Account({ user }) {
         style={{
           fontWeight: 700,
           letterSpacing: 1,
-          color: "#343a40",
-          background: " #adb5bd",
+          color: "white",
+          background: "#fd7e14",
           borderRadius: 12,
           padding: "16px 0",
           marginBottom: "32px"
@@ -114,8 +114,8 @@ export default function Account({ user }) {
             <h5
               className="mb-3 text-center"
               style={{
-                color: "#495057",
-                background: "#adb5bd",
+                color: "white",
+                background: "#fd7e14",
                 borderRadius: 8,
                 padding: "10px 0",
                 marginBottom: "18px"
@@ -132,9 +132,9 @@ export default function Account({ user }) {
           <h5
             className="mt-4 mb-3 text-center"
             style={{
-              color: "#495057",
+              color: "white",
               fontWeight: 600,
-              background: "#adb5bd",
+              background: "#fd7e14",
               borderRadius: 8,
               padding: "10px 0",
               marginTop: "32px"

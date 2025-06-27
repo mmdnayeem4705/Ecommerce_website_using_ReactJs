@@ -5,7 +5,7 @@ export default function Footer() {
     <footer
       className="text-center py-3"
       style={{
-        background: 'black', 
+        background: 'white', 
         position: 'fixed',
         left: 0,
         bottom: 0,
@@ -14,7 +14,7 @@ export default function Footer() {
         borderTop: '1px solid #95b2ce'
       }}
     >
-      <span style={{ color: '#F97316' }}>
+      <span style={{ color: '#F97316',fontSize: '1.2rem', fontWeight: 600 ,}}>
         &copy; {new Date().getFullYear()} This Store all rights are reserved by Nayeem
       </span>
     </footer>
