@@ -142,7 +142,7 @@ export default function CategoryProducts({ cart, setCart, user }) {
           className="btn btn-link mt-4 mb-2"
           onClick={() => navigate('/products')}
         >
-          &larr; Back to Categories
+          &larr; 
         </button>
         <h2 className="mb-4 text-center" style={{ fontWeight: 800, color: "#F97316" }}>
           {displayCat} Products
